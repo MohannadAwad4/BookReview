@@ -1,0 +1,25 @@
+body{
+background-color: yellow;
+}
+.images{
+  height: 100px;
+  width: 100px;
+  justify-content: left;
+  display: flex;
+ outline: auto;
+}
+
+
+.searchBar{
+  color: black;
+  text-align: center;
+  margin-left:240px;
+}
+.title{
+  text-align: center;
+  
+  margin-left: 250px;
+}
+.Reviewbutton{
+  outline: auto;
+}
