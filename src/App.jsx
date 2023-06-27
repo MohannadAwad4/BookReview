@@ -1,89 +1,105 @@
 import { useState } from 'react'
-import PropTypes from 'prop-types'
+
 import './App.css'
+import bookList from './bookList';
+import Popup from './Popup';
+import SearchBar from './searchBar';
 
 function App() {
-  
-    const books=[ // hard coded a list of books
-      {
-        images:{
-          src:"https://images.unsplash.com/photo-1495446815901-a7297e633e8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Ym9va3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1400&q=60",
-          alt:"Image Of Book"
-        },
-        title:"book1",
-        author:"author 1",
-        genre:"genre1",
-        description:"Filler hdnchsdjbsfgysgfsag"
-      },
-      {
-        
-        images:{
-          src:"https://images.unsplash.com/photo-1535905557558-afc4877a26fc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Ym9va3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1400&q=60",
-          alt:"Image Of Book"
-        },
-        title:"book2",
-        author:"author 2",
-        genre:"genre2",
-        description:"Filler hdnchsdjbsfgysgfsag"
-      },
-      {
-        title:"book3",
-        images:{
-          src:"https://images.unsplash.com/photo-1513001900722-370f803f498d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Ym9va3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1400&q=60",
-          alt:"Image Of Book"
-        },   
-        author:"author 3",
-        genre:"genre3",
-        description:"Filler hdnchsdjbsfgysgfsag"
-      },
-      {
-        title:"book4",
-        images:{
-          src:"https://images.unsplash.com/photo-1509266272358-7701da638078?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Ym9va3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1400&q=60",
-          alt:"Image Of Book"
-        },
-        author:"author 4",
-        genre:"genre4",
-        description:"Filler hdnchsdjbsfgysgfsag"
-      },
 
-    ]
-  // const searchBar=()=>{ //create a search bar
-  //   const[searchBook,setSearchBook]=useState('');
-  //   const change=(e)=>{
-  //     setSearchBook=e.target.value;
-  //   };
-  // };
-  // const submit =(e)=>{
-  //   e.preventDefault();
-  //   console.log("Search Item ", searchBook);
-  // };
+
+  const newBook=
+
+    {
+      title:"book4",
+      images:{
+        src:"https://images.unsplash.com/photo-1509266272358-7701da638078?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Ym9va3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1400&q=60",
+        alt:"Image Of Book"
+      },
+      author:"New author 4",
+      genre:"New genre4",
+      description:"New Filler hdnchsdjbsfgysgfsag"
+    }
+
+    let listB = bookList
+  
+  const [displayBooks,setdisplayBooks]=useState(bookList);
+  const displayNewBook=()=>{
+  
+
+    // displayBooks.push(newBook)
+    let newArray = [...displayBooks, newBook]
+    console.log(displayBooks)
+    setdisplayBooks(newArray)
+
+    console.log("Testing dispay")
+  }
+
+  const [isPopup,setIsPopup]=useState(false);
+  
+  const showPopup = () => {
+    setIsPopup(true);
+  }
+
+  const hidePopup = () => {
+    setIsPopup(false);
+  }
+
+ 
+    
+  
 
   return (
     <div>
-      <h1 className= "title">Book List</h1>
-      <form className="searchBar">
-    <input 
-      type="text"
-      placeholder='search'
-    />
-    </form>
-    
-      <ul>
-        {books.map(book => (
+     
+      <main>
+        {}
+        <button  >Books Reviewed</button>
+        <button >Books Marked</button>
+      <SearchBar />
+
+      
+        
+
+
+        <h1 className= "text-center ">Book List</h1>
+      </main>
+
+    <ul className='ml-10'>
+        {displayBooks.map(book => (
           <li >
-            <h3>{book.title}</h3>
+          
+            <h3 >{book.title}</h3>
+            
             <img src = {book.images.src} className="images"alt={book.alt}/>
             <image></image>
-            <p><strong>Author: </strong>{book.author}</p>
+            <p ><strong>Author: </strong>{book.author}</p>
             <p><strong>Genre: </strong>{book.genre}</p>
             <p><strong>Description: </strong> {book.description}</p>
-            <button className="Reviewbutton">Write Review</button>
+            <button className="Reviewbutton" onClick={showPopup}>Write Review</button>
             </li>
-            
-          
+        
         ))}
-      </ul>
+    </ul>
+    <Popup
+      isVisible={isPopup}
+      hidePopup={hidePopup}
+    >
+      <h2>Add Review</h2>
+      <form id="poster-form">
+       <input type="text" id="form-quote" placeholder="Enter Text Here"/>
+    
+      </form>
+
+    </Popup>
+
+     
+
+
+<button onClick={displayNewBook}>Click me</button>
+
+
+      
     </div>
   );
 }
