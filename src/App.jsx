@@ -11,7 +11,7 @@ function App() {
   const newBook=
 
     {
-      title:"book4",
+      title:"New Book!",
       images:{
         src:"https://images.unsplash.com/photo-1509266272358-7701da638078?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Ym9va3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1400&q=60",
         alt:"Image Of Book"
@@ -53,10 +53,10 @@ function App() {
     <div>
      
       <main>
-        {}
-        <button  >Books Reviewed</button>
-        <button >Books Marked</button>
-      <SearchBar />
+        
+        <SearchBar />
+        
+      
 
       
         
@@ -90,6 +90,7 @@ function App() {
        <input type="text" id="form-quote" placeholder="Enter Text Here"/>
     
       </form>
+      <button onClick={showPopup}>submit</button>
 
     </Popup>
 

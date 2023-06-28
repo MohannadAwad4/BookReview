@@ -5,7 +5,7 @@ function Popup({ isVisible, hidePopup, children }) {
         <div onClick={(e) => e.stopPropagation() } className="max-w-xl w-144 mx-auto flex flex-col">
           <button
             onClick={hidePopup}
-            className="text-white text-xl place-self-end">
+            className="bg-transparent text-black text-xl place-self-end">
             X
           </button>
           <div className="bg-white text-blue-800 p-8">
