@@ -1,22 +1,34 @@
+import React, { useState } from "react";
 
-//import bookList from "./bookList";
-function searchBar(){
-    //
-    return (
-        <div >
-            <div className=" bg-white grid grid-rows-1 grid-flow-col gap-4 border-8 border-white outline-black"> 
-            <button className="outline-blue-500" >Books Reviewed</button>
-            <button >Books Marked</button>
-            <form className="ml-52">
-                <input type="text" className="mr-50" placeholder="Search.." name="search"/>
-                <button className="text-align:center bg-white outline-black"type="submit">Submit</button>
-            </form>
-            </div>
-           
-            
-            
-        </div>
+function SearchBar({ items }) {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredItems, setFilteredItems] = useState(items);
+
+  const handleSearch = (e) => {
+    const searchText = e.target.value;
+    setSearchTerm(searchText);
+
+    const filtered = items.filter((item) =>
+      item.name.toLowerCase().includes(searchText.toLowerCase())
     );
+    setFilteredItems(filtered);
+  };
 
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Search..."
+        value={searchTerm}
+        onChange={handleSearch}
+      />
+      <ul>
+        {filteredItems.map((item) => (
+          <li key={item.id}>{item.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
 }
-export default searchBar;
+
+export default SearchBar;

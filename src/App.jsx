@@ -1,39 +1,14 @@
-import { useState } from 'react'
-
+import { useState,useEffect } from 'react'
 import './App.css'
-import bookList from './bookList';
 import Popup from './Popup';
 import SearchBar from './searchBar';
+import AddForm from './AddForm';
+
 
 function App() {
-
-
-  const newBook=
-
-    {
-      title:"New Book!",
-      images:{
-        src:"https://images.unsplash.com/photo-1509266272358-7701da638078?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Ym9va3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1400&q=60",
-        alt:"Image Of Book"
-      },
-      author:"New author 4",
-      genre:"New genre4",
-      description:"New Filler hdnchsdjbsfgysgfsag"
-    }
-
-    let listB = bookList
   
-  const [displayBooks,setdisplayBooks]=useState(bookList);
-  const displayNewBook=()=>{
-  
+  //UseState for review Pop up
 
-    // displayBooks.push(newBook)
-    let newArray = [...displayBooks, newBook]
-    console.log(displayBooks)
-    setdisplayBooks(newArray)
-
-    console.log("Testing dispay")
-  }
 
   const [isPopup,setIsPopup]=useState(false);
   
@@ -45,16 +20,56 @@ function App() {
     setIsPopup(false);
   }
 
- 
+//useState to fetch booklist frim
+  const [displayBooks,setdisplayBooks]=useState([]);
+
+  const onAddBooks = (newBook) => {``
+    // modal should close
+   // hideModal();
+    // new job should be added to the DOM
+    setdisplayBooks((displayBooks) => {
+      return [...displayBooks, newBook];
+    });
+  };
+  
+  useEffect(()=>{
+
+    async function fetchJobs(){
+    
+    const response= await fetch("http://localhost:4000/bookList");
+    
+    const displayBooks =await response.json();
+     setdisplayBooks(displayBooks);
+     
+     
+    
+    
+    return displayBooks;
+    
+    }
+    
+    fetchJobs();
+    
+    },[])
+  
+
+  
+
+  
+  
     
   
 
   return (
     <div>
      
+     
       <main>
         
-        <SearchBar />
+        <SearchBar
+        items={displayBooks}
+        />
+        
         
       
 
@@ -90,14 +105,19 @@ function App() {
        <input type="text" id="form-quote" placeholder="Enter Text Here"/>
     
       </form>
-      <button onClick={showPopup}>submit</button>
+      <button onClick={hidePopup}>submit</button>
 
     </Popup>
-
+    
+   
+    
      
 
 
-<button onClick={displayNewBook}>Click me</button>
+<AddForm 
+onAddBooks={onAddBooks}
+
+/>
 
 
       
