@@ -38,7 +38,7 @@ function AddForm({ onAddBooks }) {
       genre: bookState.genre,
       description: bookState.description,
     };
-    debugger;
+    
     const response = await fetch("http://localhost:4000/bookList", {
       method: "POST",
       headers: {
