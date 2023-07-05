@@ -77,7 +77,7 @@ function App() {
         
 
 
-        <h1 className= "text-center ">Book List</h1>
+        <h1 className= "text-center ">Book List </h1>
       </main>
 
     <ul className='ml-10'>
