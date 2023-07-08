@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Form, useLoaderData } from "react-router-dom";
 
 
 const newBook = {
@@ -13,8 +14,8 @@ const newBook = {
   description: "",
 };
 
-function AddForm({ onAddBooks }) {
-  console.log("OnAddBooks",onAddBooks);
+function AddBook({ onAddBooks }) {
+  
   const [bookState, setBookState] = useState(newBook);
   const [isAddForm, setIsAddForm] = useState(false);
 
@@ -51,6 +52,7 @@ function AddForm({ onAddBooks }) {
     onAddBooks(newestBook);
     // form should clear
     setBookState(newBook);
+    hideForm();
   };
   
 
@@ -74,17 +76,73 @@ function AddForm({ onAddBooks }) {
     return () => window.removeEventListener("keydown", handleEscape);
   }, [hideForm]);
 
-  if (!isAddForm) {
-    return (
-      <div>
-        <button onClick={showForm}>Add Book</button>
-      </div>
-    );
-  }
+  
  
 
   return (
-    <div onClick={hideForm} className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-items-center items-center">
+    <Form method="post" id="contact-form">
+      <p>
+        <span>Name</span>
+        <input
+          placeholder="First"
+          aria-label="First name"
+          type="text"
+          name="first"
+          
+        />
+        <input
+          placeholder="Last"
+          aria-label="Last name"
+          type="text"
+          name="last"
+         
+        />
+      </p>
+      <label>
+        <span>Twitter</span>
+        <input
+          type="text"
+          name="twitter"
+          placeholder="@jack"
+         
+        />
+      </label>
+      <label>
+        <span>Avatar URL</span>
+        <input
+          placeholder="https://example.com/avatar.jpg"
+          aria-label="Avatar URL"
+          type="text"
+          name="avatar"
+          
+        />
+      </label>
+      <label>
+        <span>Notes</span>
+        <textarea
+          name="notes"
+          
+          rows={6}
+        />
+      </label>
+      <p>
+        <button type="submit">Save</button>
+        <button type="button">Cancel</button>
+      </p>
+    </Form>
+  );
+    
+
+  
+    }
+    
+  
+
+export default AddBook;
+
+
+
+{/* <div onClick={hideForm} className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-items-center items-center">
       <div onClick={(e) => e.stopPropagation()} className="max-w-xl w-144 mx-auto flex flex-col">
         <button
           onClick={hideForm}
@@ -110,7 +168,4 @@ function AddForm({ onAddBooks }) {
           </form>
         </div>
       </div>
-    </div>
-  );
-}
-export default AddForm;
+    </div> */}
