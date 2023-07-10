@@ -39,9 +39,10 @@ export default function MyReviews(){
    
     return (
         <>
-        {/* <SearchBar/>
-        <Layout/> */}
-       <h1>This is MyReviewPage</h1>
+        
+         <SearchBar/>
+       
+       <h1 className='text-center'>Reviewed Books</h1>
        <ul className='ml-10 book-grid'>
   {filteredBooks.map(book => (
     <li key={book.id} className="book-item">
@@ -51,7 +52,8 @@ export default function MyReviews(){
       <div><p><strong>Genre: </strong>{book.genre}</p></div>
       <div><p><strong>Description: </strong>{book.description}</p></div>
       <div className="flex gap-1">
-     <Link to={`/Edit/1`}>Edit </Link> 
+     
+     <Link to ={`/Edit/1`}>Edit</Link>
         <button className="Reviewbutton" type="submit" onClick={showPopup}>Delete</button>
       </div>
     </li>

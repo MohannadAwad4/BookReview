@@ -12,7 +12,7 @@ import ErrorPage from './error-page.jsx';
 import MyReviews from './NavBar/MyReviews.jsx';
 import Contact from './NavBar/Contact.jsx';
 import AddBook from './NavBar/AddBook.jsx';
-import Edit from './NavBar/Edit.jsx';
+import Edit, {loader as editBookLoader} from './NavBar/Edit.jsx';
 
 const router = createBrowserRouter([
   {
@@ -23,14 +23,16 @@ const router = createBrowserRouter([
       {
         path: "MyReviews/:MyReviewsId",
         element: <MyReviews />,
-        children:[
+      },
+       
           {
             path:"Edit/:EditId",
             element:<Edit/>,
+            loader: editBookLoader,
 
         },
-      ],
-      },
+      
+      
     
   
   {

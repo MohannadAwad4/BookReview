@@ -29,13 +29,12 @@ function App() {
       <h1 className= "text-center ">Book List</h1>
 
 
-    <div className="flex">
-    {/* <div><Layout/></div>   */}
+    
     
     <div><BookUI/></div>
     
-</div>
-   
+
+   </div>
       
    
     
@@ -46,7 +45,7 @@ function App() {
 
 
       
-    </div>
+    
   );
 }
 

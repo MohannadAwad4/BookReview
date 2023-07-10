@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Form, useLoaderData } from "react-router-dom";
+import SearchBar from "../searchBar";
 
 
 const newBook = {
@@ -80,56 +81,36 @@ function AddBook({ onAddBooks }) {
  
 
   return (
-    <Form method="post" id="contact-form">
-      <p>
-        <span>Name</span>
-        <input
-          placeholder="First"
-          aria-label="First name"
-          type="text"
-          name="first"
-          
-        />
-        <input
-          placeholder="Last"
-          aria-label="Last name"
-          type="text"
-          name="last"
-         
-        />
-      </p>
-      <label>
-        <span>Twitter</span>
-        <input
-          type="text"
-          name="twitter"
-          placeholder="@jack"
-         
-        />
-      </label>
-      <label>
-        <span>Avatar URL</span>
-        <input
-          placeholder="https://example.com/avatar.jpg"
-          aria-label="Avatar URL"
-          type="text"
-          name="avatar"
-          
-        />
-      </label>
-      <label>
-        <span>Notes</span>
-        <textarea
-          name="notes"
-          
-          rows={6}
-        />
-      </label>
-      <p>
-        <button type="submit">Save</button>
-        <button type="button">Cancel</button>
-      </p>
+    <>
+    <SearchBar/>
+    <Form className=" bg-slate-200 m-20 rounded-lg " method="post" id="contact-form">
+    
+    <ul className="indent-5">
+            
+            <li> <lable>Title:</lable>
+             <input className=" m-auto block rounded-lg w-96 " placeholder=""></input>
+             </li>
+             <br></br>
+            <li> <lable>Author:</lable>
+              <input className=" m-auto block rounded-lg w-96" placeholder=""></input>
+              </li>
+             <br></br>
+            <li>  <lable>Genre:</lable>
+              <input className=" m-auto block rounded-lg w-96" placeholder=""></input>
+              </li>
+             <br></br>
+            <li> <lable>Description:</lable>
+             <input className="rounded-lg w-96 h-40 m-auto block mg-px" placeholder="enter here"></input>
+             </li>
+            </ul>
+    
+       
+            <button className=" justify-end  outline-black items-center rounded-full w-auto p-2 bg-slate-400"type="submit">Save</button>
+            
+           
+      
     </Form>
+    </>
   );
     
 
