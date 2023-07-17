@@ -1,8 +1,8 @@
 import { useState,useEffect } from 'react'
-import {useLoaderData} from "react-router-dom";
+
 import Popup from './Popup';
 import AddForm from './NavBar/AddBook';
-import MyReviews from './NavBar/MyReviews';
+
 
 
 export default function BookUI(){
@@ -18,7 +18,7 @@ export default function BookUI(){
 
     const [displayBooks,setdisplayBooks]=useState([]);
 
-  const onAddBooks = (newBook) => {``
+  const onAddBooks = (newBook) => {
     
     setdisplayBooks((displayBooks) => {
       return [...displayBooks, newBook];
@@ -31,13 +31,13 @@ export default function BookUI(){
     
     const response= await fetch("http://localhost:3000/bookList");
     
-    const displayBooks =await response.json();
-     setdisplayBooks(displayBooks);
+    const fetchedBooks =await response.json();
+     setdisplayBooks(fetchedBooks);
      
      
     
     
-    return displayBooks;
+    return fetchedBooks;
     
     }
     
@@ -51,7 +51,7 @@ export default function BookUI(){
   {displayBooks.map(book => (
     <li key={book.id} className="book-item">
       <div><h3>{book.title}</h3></div>
-      <div><img src={book.images.src} className="images" alt={book.alt} /></div>
+      <div><img src={book.src} className="images" alt={book.alt} /></div>
       <div><p><strong>Author: </strong>{book.author}</p></div>
       <div><p><strong>Genre: </strong>{book.genre}</p></div>
       <div><p><strong>Description: </strong>{book.description}</p></div>

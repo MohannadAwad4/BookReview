@@ -1,54 +1,50 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import {
-  createBrowserRouter,
-  RouterProvider,
-
-
-}from "react-router-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App.jsx';
+import './index.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+//import DeleteBook from './NavBar/DeleteBook.jsx';
+import DeleteBook, { loader as deleteLoader } from './NavBar/DeleteBook.jsx';
 import ErrorPage from './error-page.jsx';
 import MyReviews from './NavBar/MyReviews.jsx';
 import Contact from './NavBar/Contact.jsx';
-import AddBook from './NavBar/AddBook.jsx';
-import Edit, {loader as editBookLoader} from './NavBar/Edit.jsx';
+import AddBook, { action as action} from './NavBar/AddBook.jsx';
+import Edit, { loader as loader } from './NavBar/Edit.jsx';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
     errorElement: <ErrorPage />,
   },
-      {
-        path: "MyReviews/:MyReviewsId",
-        element: <MyReviews />,
-      },
-       
-          {
-            path:"Edit/:EditId",
-            element:<Edit/>,
-            loader: editBookLoader,
-
-        },
-      
-      
-    
-  
   {
-    path:"Contact/:ContactId",
-    element: <Contact/>
+    path: '/MyReviews/:MyReviewsId',
+    element: <MyReviews />,
   },
   {
-    path: "AddBook/:AddBookId",
-    element:<AddBook/>
+    path: '/Edit/:id',
+    element: <Edit />,
+    loader: loader,
   },
-  
+  {
+    path: '/Contact/:ContactId',
+    element: <Contact />,
+  },
+    {
+      path: '/AddBook/:AddBookId',
+      element: <AddBook />,
+      action: action,
+    },
+    {
+      path: '/Delete/:id',
+      element: <DeleteBook />,
+      loader: deleteLoader,
+    },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.render(
   <React.StrictMode>
     <RouterProvider router={router} />
-    
   </React.StrictMode>,
-)
+  document.getElementById('root')
+);

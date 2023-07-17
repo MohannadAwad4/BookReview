@@ -1,111 +1,65 @@
 import React, { useEffect, useState } from "react";
-import { Form, useLoaderData } from "react-router-dom";
+import { Form, useLoaderData,redirect } from "react-router-dom";
 import SearchBar from "../searchBar";
 
 
-const newBook = {
-  images: {
-    src:
-      "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Ym9va3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1400&q=60",
-    alt: "Image Of New Book",
-  },
-  title: "",
-  author: "",
-  genre: "",
-  description: "",
-};
-
-function AddBook({ onAddBooks }) {
+export async function action({ request, params }) {
+  let formData = await request.formData();
+  let bookData = Object.fromEntries(formData);
   
-  const [bookState, setBookState] = useState(newBook);
-  const [isAddForm, setIsAddForm] = useState(false);
+ 
+  const response = await fetch("http://localhost:3000/bookList", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(bookData)
+  })
+  console.log("bookData: ",bookData);
+  return redirect('/');
+}
 
-  const handleInput = (e) => {
-    setBookState((bookState) => {
-      return {
-        ...bookState,
-        [e.target.name]: e.target.value,
-      };
-    });
-  };
 
-  const handleAddBookFormSubmit = async (e) => {
-    e.preventDefault();
+
+function AddBook() {
   
-    // new job should be added to the DOM
-    const preparedBook = {
-      ...bookState,
-      title: bookState.title,
-      author: bookState.author,
-      genre: bookState.genre,
-      description: bookState.description,
-    };
-    debugger;
-    const response = await fetch("http://localhost:4000/bookList", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(preparedBook),
-    });
-    const newestBook = await response.json();
-    // parent component should be notified of created job
-    onAddBooks(newestBook);
-    // form should clear
-    setBookState(newBook);
-    hideForm();
-  };
+ 
+  
   
 
-  const showForm = () => {
-    setIsAddForm(true);
-  };
-
-  const hideForm = () => {
-    setIsAddForm(false);
-  };
-
-  useEffect(() => {
-    const handleEscape = (event) => {
-      if (event.key === "Escape") {
-        hideForm();
-      }
-    };
-
-    window.addEventListener("keydown", handleEscape);
-
-    return () => window.removeEventListener("keydown", handleEscape);
-  }, [hideForm]);
-
-  
  
 
   return (
     <>
     <SearchBar/>
-    <Form className=" bg-slate-200 m-20 rounded-lg " method="post" id="contact-form">
+    <Form 
+    className=" bg-slate-200 m-20 rounded-lg " 
+    method="post" 
+    
+    id="contact-form"
+    >
     
     <ul className="indent-5">
             
             <li> <lable>Title:</lable>
-             <input className=" m-auto block rounded-lg w-96 " placeholder=""></input>
+             <input type="text" name='title'  className=" m-auto block rounded-lg w-96 " placeholder=""></input>
              </li>
              <br></br>
             <li> <lable>Author:</lable>
-              <input className=" m-auto block rounded-lg w-96" placeholder=""></input>
+              <input type="text" name='author'  className=" m-auto block rounded-lg w-96" placeholder=""></input>
               </li>
              <br></br>
             <li>  <lable>Genre:</lable>
-              <input className=" m-auto block rounded-lg w-96" placeholder=""></input>
+              <input type="text" name='genre'  className=" m-auto block rounded-lg w-96" placeholder=""></input>
               </li>
              <br></br>
-            <li> <lable>Description:</lable>
-             <input className="rounded-lg w-96 h-40 m-auto block mg-px" placeholder="enter here"></input>
+            <li> <lable>Review:</lable>
+             <input type="text" name='review'  className="rounded-lg w-96 h-40 m-auto block mg-px" ></input>
              </li>
             </ul>
     
        
-            <button className=" justify-end  outline-black items-center rounded-full w-auto p-2 bg-slate-400"type="submit">Save</button>
+            <input  value="save" className=" justify-end  outline-black items-center rounded-full w-auto p-2 bg-slate-400"type="submit"></input>
             
            
       
