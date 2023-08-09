@@ -1,64 +1,50 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import Root, { 
-  loader as rootLoader,
-  action as rootAction,
- } from "./routes/root";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App.jsx';
 import './index.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+//import DeleteBook from './NavBar/DeleteBook.jsx';
+import DeleteBook, { loader as deleteLoader } from './NavBar/DeleteBook.jsx';
 import ErrorPage from './error-page.jsx';
-import Contact,{
-  loader as contactLoader,
-  action as contactAction,
-} from "./routes/contact";
-import EditContact,{
-  action as editAction,
-} from './routes/edit.jsx';
-import {action as destroyAction} from "./routes/destroy.jsx";
-import Index from './routes/index.jsx';
+import MyReviews from './NavBar/MyReviews.jsx';
+import Contact from './NavBar/Contact.jsx';
+import AddBook, { action as action} from './NavBar/AddBook.jsx';
+import Edit, { loader as loader } from './NavBar/Edit.jsx';
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Root />,
+    path: '/',
+    element: <App />,
     errorElement: <ErrorPage />,
-    loader: rootLoader,
-    action: rootAction,
-    children: [
-      
-        
-
-      { index: true, element: <Index /> },
-
-      {
-        path: "contacts/:contactId/destroy",
-        action: destroyAction,
-        errorElement: <div>Oops! There was an error.</div>,
-      },
-      {
-        path: "contacts/:contactId",
-        element: <Contact />,
-        loader:contactLoader,
-        action:contactAction,
-      },
-      {
-        path: "contacts/:contactId/edit",
-        element: <EditContact />,
-        loader: contactLoader,
-        action:editAction
-      },
-      
-    ],
   },
+  {
+    path: '/MyReviews/:MyReviewsId',
+    element: <MyReviews />,
+  },
+  {
+    path: '/Edit/:id',
+    element: <Edit />,
+    loader: loader,
+  },
+  {
+    path: '/Contact/:ContactId',
+    element: <Contact />,
+  },
+    {
+      path: '/AddBook/:AddBookId',
+      element: <AddBook />,
+      action: action,
+    },
+    {
+      path: '/Delete/:id',
+      element: <DeleteBook />,
+      loader: deleteLoader,
+    },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.render(
   <React.StrictMode>
     <RouterProvider router={router} />
-    <App />
   </React.StrictMode>,
-)
+  document.getElementById('root')
+);
